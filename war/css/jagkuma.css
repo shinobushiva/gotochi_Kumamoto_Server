@@ -1,0 +1,24 @@
+@CHARSET "utf-8";
+
+form {
+	display: inline;
+}
+
+.name {
+	display: block;
+}
+
+.value {
+	display: block;
+}
+
+form div {
+	width: 300px;
+	margin: 2px;
+	padding: 5px;
+	background-color: #eeeeee;
+}
+
+form div input {
+	background-color: none;
+}
