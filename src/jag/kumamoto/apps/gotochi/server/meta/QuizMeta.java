@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-13 13:44:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-14 23:46:51")
 /** */
 public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.Quiz> {
 
@@ -12,6 +12,9 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
 
     /** */
     public final org.slim3.datastore.CollectionAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, java.util.List<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> optionKeys = new org.slim3.datastore.CollectionAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, java.util.List<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "optionKeys", "optionKeys", java.util.List.class);
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, java.lang.Integer> order = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, java.lang.Integer>(this, "order", "order", java.lang.Integer.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, com.google.appengine.api.datastore.Key> pinKey = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz, com.google.appengine.api.datastore.Key>(this, "pinKey", "pinKey", com.google.appengine.api.datastore.Key.class);
@@ -45,6 +48,7 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
         model.setHtml(textToString((com.google.appengine.api.datastore.Text) entity.getProperty("html")));
         model.setKey(entity.getKey());
         model.setOptionKeys(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("optionKeys")));
+        model.setOrder(longToInteger((java.lang.Long) entity.getProperty("order")));
         model.setPinKey((com.google.appengine.api.datastore.Key) entity.getProperty("pinKey"));
         model.setPoint(longToInteger((java.lang.Long) entity.getProperty("point")));
         model.setTitle((java.lang.String) entity.getProperty("title"));
@@ -63,6 +67,7 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
         }
         entity.setUnindexedProperty("html", stringToText(m.getHtml()));
         entity.setProperty("optionKeys", m.getOptionKeys());
+        entity.setProperty("order", m.getOrder());
         entity.setProperty("pinKey", m.getPinKey());
         entity.setProperty("point", m.getPoint());
         entity.setProperty("title", m.getTitle());
@@ -144,6 +149,11 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
             }
             writer.endArray();
         }
+        if(m.getOrder() != null){
+            writer.setNextPropertyName("order");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getOrder());
+        }
         if(m.getPinKey() != null){
             writer.setNextPropertyName("pinKey");
             encoder = new org.slim3.datastore.json.Default();
@@ -196,6 +206,9 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
                 m.setOptionKeys(elements);
             }
         }
+        reader = rootReader.newObjectReader("order");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setOrder(decoder.decode(reader, m.getOrder()));
         reader = rootReader.newObjectReader("pinKey");
         decoder = new org.slim3.datastore.json.Default();
         m.setPinKey(decoder.decode(reader, m.getPinKey()));

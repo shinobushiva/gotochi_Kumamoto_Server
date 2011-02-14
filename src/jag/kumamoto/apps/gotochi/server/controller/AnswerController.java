@@ -77,6 +77,7 @@ public class AnswerController extends JsonController {
                 el.setExecuted(old.getExecuted());
             }
 
+            el.setExecuted(1); // 執行済みにマーク
             GlobalTransaction tx = Datastore.beginGlobalTransaction();
             Datastore.put(el);
             tx.commit();
@@ -87,16 +88,16 @@ public class AnswerController extends JsonController {
                     gud.setPoint(0);
                 }
                 gud.setPoint(gud.getPoint() + quiz.getPoint());
-                el.setExecuted(1); // 執行済みにマーク
 
                 tx = Datastore.beginGlobalTransaction();
                 Datastore.put(gud);
                 tx.commit();
-                // ps.checkPrize(gud, pin, quiz, user); // 受賞チェック
+                ps.checkPrize(gud, pin, quiz, user); // 受賞チェック
             }
 
             // XXX:テスト
-            ps.checkPrize(us.getGotochiData(user), pin, quiz, user); // 受賞チェック
+            // ps.checkPrize(us.getGotochiData(user), pin, quiz, user); //
+            // 受賞チェック
         }
 
         Map<String, Object> hm = new HashMap<String, Object>();

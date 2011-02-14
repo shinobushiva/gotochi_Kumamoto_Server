@@ -29,10 +29,13 @@ public class EventLog implements Serializable {
     private Long version;
 
     /**
-     * ピン参照キー
+     * ピン参照キー XXX:LOBとどちらかだけ残す
      */
     private ModelRef<Pin> pinRef = new ModelRef<Pin>(Pin.class);
 
+    /**
+     * ピン
+     */
     @Attribute(lob = true)
     private Pin pin;
 
@@ -46,6 +49,9 @@ public class EventLog implements Serializable {
      */
     private ModelRef<Quiz> quizRef = new ModelRef<Quiz>(Quiz.class);
 
+    /**
+     * クイズ
+     */
     @Attribute(lob = true)
     private Quiz quiz;
 
