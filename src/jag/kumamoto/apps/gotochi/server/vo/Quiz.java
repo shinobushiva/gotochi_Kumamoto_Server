@@ -55,6 +55,11 @@ public class Quiz implements Serializable {
     private Integer point;
 
     /**
+     * プライオリティ
+     */
+    private Integer order;
+
+    /**
      * Returns the key.
      * 
      * @return the key
@@ -160,6 +165,14 @@ public class Quiz implements Serializable {
 
     public Integer getPoint() {
         return point;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Integer getOrder() {
+        return order;
     }
 
 }
