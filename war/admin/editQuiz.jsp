@@ -21,6 +21,8 @@
 	name="html" rows="10">${f:h(quiz.html) }</textarea></span></div>
 <div><span class="name">Point</span><span class="value"><input
 	type="text" name="point" value="${quiz.point }" /></span></div>
+<div><span class="name">Order</span><span class="value"><input
+	type="text" name="order" value="${quiz.order }" /></span></div>
 
 <div><input type="submit"></input></div>
 </form>
