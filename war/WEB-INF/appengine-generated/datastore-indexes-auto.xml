@@ -1,16 +1,16 @@
-<!-- Indices written at Sun, 13 Feb 2011 15:13:19 UTC -->
+<!-- Indices written at Sun, 20 Feb 2011 11:22:05 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 56 times in query history -->
+    <!-- Used 6 times in query history -->
     <datastore-index kind="EventLog" ancestor="false" source="auto">
-        <property name="pinKey" direction="asc"/>
-        <property name="quizKey" direction="asc"/>
-        <property name="userKey" direction="asc"/>
+        <property name="executed" direction="asc"/>
+        <property name="quizRef" direction="asc"/>
+        <property name="userRef" direction="asc"/>
         <property name="overridden" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 92 times in query history -->
+    <!-- Used 4 times in query history -->
     <datastore-index kind="EventLog" ancestor="false" source="auto">
         <property name="pinRef" direction="asc"/>
         <property name="quizRef" direction="asc"/>
@@ -18,15 +18,22 @@
         <property name="overridden" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 52 times in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="EventLog" ancestor="false" source="auto">
         <property name="userRef" direction="asc"/>
         <property name="overridden" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 12 times in query history -->
+    <!-- Used 4 times in query history -->
     <datastore-index kind="EventLog" ancestor="false" source="auto">
         <property name="executed" direction="asc"/>
+        <property name="userRef" direction="asc"/>
+        <property name="overridden" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="EventLog" ancestor="false" source="auto">
+        <property name="quizRef" direction="asc"/>
         <property name="userRef" direction="asc"/>
         <property name="overridden" direction="asc"/>
     </datastore-index>

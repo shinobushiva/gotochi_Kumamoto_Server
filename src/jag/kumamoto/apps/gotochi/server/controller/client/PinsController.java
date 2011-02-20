@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.model.Pin;
 
@@ -20,6 +20,7 @@ public class PinsController extends JsonController {
         List<Pin> pins = Datastore.query(Pin.class).asList();
 
         map.put("pins", pins);
+        map.put("success", "true");
 
         return map;
     }

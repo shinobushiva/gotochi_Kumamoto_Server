@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.model.Prize;
 import jag.kumamoto.apps.gotochi.server.model.User;
@@ -27,6 +27,7 @@ public class PrizesController extends JsonController {
 
         Map<String, Object> hm = new HashMap<String, Object>();
         hm.put("prizes", prs);
+        hm.put("success", "true");
 
         return hm;
     }

@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.meta.UserAuthMeta;
 import jag.kumamoto.apps.gotochi.server.model.GotochiUserData;
@@ -31,39 +31,55 @@ public class RegistrationController extends JsonController {
         String nickname = asString("nickname");
         Integer gender = asInteger("gender");
 
-        // XXX:仮にE-mail
         UserAuth ua =
             Datastore.query(UserAuth.class).filter(
                 UserAuthMeta.get().token.equal(token)).asSingle();
+        User u = null;
+        GotochiUserData gud = null;
+
         if (ua == null) {
-            User u = new User();
+            u = new User();
+            Key userKey = Datastore.allocateId(User.class);
+            u.setKey(userKey);
             u.setGender(gender);
             u.setNickName(nickname);
-            GlobalTransaction tx = Datastore.beginGlobalTransaction();
-            Key userKey = Datastore.put(u);
 
             ua = new UserAuth();
-            ua.setToken(token);
-            ua.setUserKey(userKey);
-
             Key uaKey = Datastore.allocateId(userKey, UserAuth.class);
             ua.setKey(uaKey);
-            Datastore.put(ua);
+            ua.setUserKey(u.getKey());
 
-            GotochiUserData gud = new GotochiUserData();
-            gud.setUserKey(userKey);
-            Key gudKey = Datastore.allocateId(userKey, GotochiUserData.class);
+            gud = new GotochiUserData();
+            Key gudKey =
+                Datastore.allocateId(u.getKey(), GotochiUserData.class);
             gud.setKey(gudKey);
             gud.setPoint(0);
+
+            GlobalTransaction tx = Datastore.beginGlobalTransaction();
+            Datastore.put(u);
+
+            ua.setToken(token);
+            Datastore.put(ua);
+
+            gud.setUserKey(u.getKey());
             Datastore.put(gud);
 
             tx.commit();
-            hm.put("success", "true");
-            return hm;
+
+        } else {
+            Key userKey = ua.getUserKey();
+
+            u = Datastore.get(User.class, userKey);
+            u.setGender(gender);
+            u.setNickName(nickname);
+            GlobalTransaction tx = Datastore.beginGlobalTransaction();
+            Datastore.put(u);
+
+            tx.commit();
         }
 
-        hm.put("success", "false");
+        hm.put("success", "true");
         return hm;
-    }
 
+    }
 }

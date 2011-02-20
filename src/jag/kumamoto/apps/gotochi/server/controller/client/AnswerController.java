@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.model.EventLog;
 import jag.kumamoto.apps.gotochi.server.model.GotochiUserData;
@@ -101,7 +101,7 @@ public class AnswerController extends JsonController {
         }
 
         Map<String, Object> hm = new HashMap<String, Object>();
-
+        hm.put("success", "true");
         return hm;
     }
 

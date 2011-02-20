@@ -66,6 +66,7 @@ public class PrizeService {
 
     public List<Prize> listPrizes(User u) {
         return Datastore.query(Prize.class).filter(
-            PrizeMeta.get().userKey.equal(u.getKey())).asList();
+            PrizeMeta.get().userKey.equal(u.getKey())).sort(
+            PrizeMeta.get().issuedTime.asc).asList();
     }
 }

@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.meta.QuizMeta;
 import jag.kumamoto.apps.gotochi.server.model.Option;
@@ -50,6 +50,7 @@ public class QuizesController extends JsonController {
         }
 
         map.put("quizes", nl);
+        map.put("success", "true");
 
         return map;
     }

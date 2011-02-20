@@ -1,4 +1,4 @@
-package jag.kumamoto.apps.gotochi.server.controller;
+package jag.kumamoto.apps.gotochi.server.controller.client;
 
 import jag.kumamoto.apps.gotochi.server.model.EventLog;
 import jag.kumamoto.apps.gotochi.server.model.GotochiUserData;
@@ -55,17 +55,23 @@ public class ArriveController extends JsonController {
                 el.setExecuted(old.getExecuted());
             }
 
-            if (1 == el.getCorrectness() && 1 != el.getExecuted()) {
+            // System.out.println("el? : " + el);
+            // System.out.println("el? : " + el.getCorrectness());
+            // System.out.println("el? : " + el.getExecuted());
+            if (el.getExecuted() != null && 1 != el.getExecuted()) {
                 GotochiUserData gud = us.getGotochiData(user);
+
                 if (gud.getPoint() == null) {
                     gud.setPoint(0);
                 }
+
                 gud.setPoint(gud.getPoint() + pin.getPoint());
                 el.setExecuted(1); // 執行済みにマーク
 
                 GlobalTransaction tx = Datastore.beginGlobalTransaction();
                 Datastore.put(gud);
                 tx.commit();
+
                 ps.checkPrize(gud, pin, null, user); // 受賞チェック
             }
 
@@ -75,6 +81,7 @@ public class ArriveController extends JsonController {
         }
 
         Map<String, Object> hm = new HashMap<String, Object>();
+        hm.put("success", "true");
 
         return hm;
     }

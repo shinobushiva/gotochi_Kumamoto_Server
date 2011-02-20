@@ -22,6 +22,7 @@ public class EventLogService {
                 .filter(m.pinRef.equal(pin.getKey()))
                 .filter(m.quizRef.equal(quiz.getKey()))
                 .filter(m.overridden.notEqual(1))
+                .sort(m.time.asc)
                 .asSingle();
         return el;
 
@@ -37,6 +38,7 @@ public class EventLogService {
                 .filter(m.pinRef.equal(pin.getKey()))
                 .filter(m.quizRef.equal(null))
                 .filter(m.overridden.notEqual(1))
+                .sort(m.time.asc)
                 .asSingle();
         return el;
 
@@ -50,6 +52,21 @@ public class EventLogService {
             .filter(m.userRef.equal(user.getKey()))
             .filter(m.overridden.notEqual(1))
             .filter(m.executed.equal(1))
+            .sort(m.time.asc)
+            .asList();
+
+    }
+
+    public List<EventLog> getArrivedLog(User user) {
+
+        EventLogMeta m = EventLogMeta.get();
+        return Datastore
+            .query(EventLog.class)
+            .filter(m.userRef.equal(user.getKey()))
+            .filter(m.overridden.notEqual(1))
+            .filter(m.executed.equal(1))
+            .filter(m.quizRef.equal(null))
+            .sort(m.time.asc)
             .asList();
 
     }

@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.controller;
 
+import jag.kumamoto.apps.gotochi.server.controller.client.PinsController;
+
 import org.slim3.tester.ControllerTestCase;
 import org.junit.Test;
 import static org.junit.Assert.*;
