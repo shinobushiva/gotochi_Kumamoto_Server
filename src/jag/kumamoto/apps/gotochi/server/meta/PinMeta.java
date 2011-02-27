@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-27 21:50:30")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-28 01:55:08")
 /** */
 public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.Pin> {
 
@@ -11,7 +11,7 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, java.lang.Integer> areaCode = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, java.lang.Integer>(this, "areaCode", "areaCode", java.lang.Integer.class);
 
     /** */
-    public final org.slim3.datastore.StringAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin> description = new org.slim3.datastore.StringAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin>(this, "description", "description");
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin> description = new org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin>(this, "description", "description");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -59,7 +59,7 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
         jag.kumamoto.apps.gotochi.server.model.Pin model = new jag.kumamoto.apps.gotochi.server.model.Pin();
         model.setAltitude(longToInteger((java.lang.Long) entity.getProperty("altitude")));
         model.setAreaCode(longToInteger((java.lang.Long) entity.getProperty("areaCode")));
-        model.setDescription((java.lang.String) entity.getProperty("description"));
+        model.setDescription(textToString((com.google.appengine.api.datastore.Text) entity.getProperty("description")));
         model.setKey(entity.getKey());
         model.setLatitude(longToInteger((java.lang.Long) entity.getProperty("latitude")));
         model.setLongitude(longToInteger((java.lang.Long) entity.getProperty("longitude")));
@@ -83,7 +83,7 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
         }
         entity.setProperty("altitude", m.getAltitude());
         entity.setProperty("areaCode", m.getAreaCode());
-        entity.setProperty("description", m.getDescription());
+        entity.setUnindexedProperty("description", stringToText(m.getDescription()));
         entity.setProperty("latitude", m.getLatitude());
         entity.setProperty("longitude", m.getLongitude());
         entity.setProperty("name", m.getName());

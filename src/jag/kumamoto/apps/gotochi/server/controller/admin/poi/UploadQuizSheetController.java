@@ -60,10 +60,11 @@ public class UploadQuizSheetController extends Controller {
                                 .query(Option.class)
                                 .filter(OptionMeta.get().quizKey.equal(quizKey))
                                 .asKeyList();
-                        {
+                        for (Key key : asKeyList) {
+
                             GlobalTransaction gtx =
                                 Datastore.beginGlobalTransaction();
-                            Datastore.delete(asKeyList);
+                            Datastore.delete(key);
                             gtx.commit();
                         }
 
@@ -85,6 +86,7 @@ public class UploadQuizSheetController extends Controller {
                     quizKey = Datastore.allocateId(Quiz.class);
                     quiz.setKey(quizKey);
                 }
+                quiz.getOptionKeys().clear();
 
                 for (int i = 0; i < s.optionIds.length; i++) {
                     Option option = null;
@@ -99,10 +101,7 @@ public class UploadQuizSheetController extends Controller {
                         opKey = Datastore.allocateId(Option.class);
                         option.setKey(opKey);
                     }
-
-                    System.out.println(s);
-                    System.out.println(s.optionContent.length);
-                    System.out.println(v(s.optionContent, i));
+                    option.setQuizKey(quizKey);
 
                     option.setText(v(s.optionContent, i));
                     if (!n(v(s.optionCorrectness, i)))
@@ -134,9 +133,11 @@ public class UploadQuizSheetController extends Controller {
                     quiz.setOrder(Integer.parseInt(v(s.quizOrder)));
                 else
                     quiz.setOrder(null);
+                quiz.setPinKey(pin.getKey());
 
                 GlobalTransaction gtx = Datastore.beginGlobalTransaction();
                 Datastore.put(quiz);
+                System.out.println(quiz.getHtml());
                 gtx.commit();
 
             } else {
@@ -205,6 +206,9 @@ public class UploadQuizSheetController extends Controller {
     }
 
     private String v(String[] sr, int i) {
+        if (sr == null) {
+            return "";
+        }
         if (sr.length <= i) {
             return "";
         }

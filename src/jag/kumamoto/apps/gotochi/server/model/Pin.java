@@ -52,6 +52,7 @@ public class Pin implements Serializable {
     /**
      * ピンの説明
      */
+    @Attribute(lob = true)
     private String description;
 
     /**

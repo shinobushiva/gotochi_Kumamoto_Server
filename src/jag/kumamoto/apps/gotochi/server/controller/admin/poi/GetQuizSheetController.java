@@ -1,6 +1,8 @@
 package jag.kumamoto.apps.gotochi.server.controller.admin.poi;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jag.kumamoto.apps.gotochi.server.meta.OptionMeta;
@@ -85,7 +87,8 @@ public class GetQuizSheetController extends Controller {
         // EXCELのコンテントタイプを設定
         response.setContentType("application/msexcel");
 
-        String fname = "DataSheet.xls";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        String fname = "DataSheet_" + sdf.format(new Date()) + ".xls";
 
         // ファイル名を設定
         response.setHeader("Content-Disposition", "attachment; filename="
