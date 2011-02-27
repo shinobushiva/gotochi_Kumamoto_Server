@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <LINK href="/css/jagkuma.css" rel="stylesheet" type="text/css">
-<title>admin Items</title>
+<title>アイテムのリスト</title>
 </head>
 <body>
-<p>Hello admin Items !!!</p>
-
 <div><a href="index">トップ</a></div>
+<h2>アイテムのリスト</h2>
+
 <form action="editItem"><input type="submit" value="アイテムを作成"></form>
 <hr />
 <c:forEach var="e" items="${items}">

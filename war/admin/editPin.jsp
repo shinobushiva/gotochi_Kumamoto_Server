@@ -17,6 +17,8 @@
 	value="${pin.key.id}" />
 <div><span class="name">Name</span><span class="value"><input
 	type="text" name="name" value="${pin.name }" /></span></div>
+<div><span class="name">Description</span><span class="value"><textarea
+	name="description" rows="3">${pin.description }</textarea></span></div>
 <div><span class="name">Latitude</span><span class="value"><input
 	type="text" name="latitude" value="${pin.latitude }" /></span></div>
 <div><span class="name">Longitude</span><span class="value"><input

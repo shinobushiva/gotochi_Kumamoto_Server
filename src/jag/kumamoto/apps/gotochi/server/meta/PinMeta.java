@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-13 13:44:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-27 21:50:30")
 /** */
 public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.Pin> {
 
@@ -9,6 +9,9 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, java.lang.Integer> areaCode = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, java.lang.Integer>(this, "areaCode", "areaCode", java.lang.Integer.class);
+
+    /** */
+    public final org.slim3.datastore.StringAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin> description = new org.slim3.datastore.StringAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin>(this, "description", "description");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Pin, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -56,6 +59,7 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
         jag.kumamoto.apps.gotochi.server.model.Pin model = new jag.kumamoto.apps.gotochi.server.model.Pin();
         model.setAltitude(longToInteger((java.lang.Long) entity.getProperty("altitude")));
         model.setAreaCode(longToInteger((java.lang.Long) entity.getProperty("areaCode")));
+        model.setDescription((java.lang.String) entity.getProperty("description"));
         model.setKey(entity.getKey());
         model.setLatitude(longToInteger((java.lang.Long) entity.getProperty("latitude")));
         model.setLongitude(longToInteger((java.lang.Long) entity.getProperty("longitude")));
@@ -79,6 +83,7 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
         }
         entity.setProperty("altitude", m.getAltitude());
         entity.setProperty("areaCode", m.getAreaCode());
+        entity.setProperty("description", m.getDescription());
         entity.setProperty("latitude", m.getLatitude());
         entity.setProperty("longitude", m.getLongitude());
         entity.setProperty("name", m.getName());
@@ -155,6 +160,11 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getAreaCode());
         }
+        if(m.getDescription() != null){
+            writer.setNextPropertyName("description");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getDescription());
+        }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder = new org.slim3.datastore.json.Default();
@@ -214,6 +224,9 @@ public final class PinMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.ap
         reader = rootReader.newObjectReader("areaCode");
         decoder = new org.slim3.datastore.json.Default();
         m.setAreaCode(decoder.decode(reader, m.getAreaCode()));
+        reader = rootReader.newObjectReader("description");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setDescription(decoder.decode(reader, m.getDescription()));
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));

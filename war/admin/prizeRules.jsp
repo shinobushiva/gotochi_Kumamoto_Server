@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <LINK href="/css/jagkuma.css" rel="stylesheet" type="text/css">
-<title>admin PrizeRules</title>
+<title>受賞ルールのリスト</title>
 </head>
 <body>
-<p>Hello admin PrizeRules !!!</p>
-
 <div><a href="index">トップ</a></div>
+<div><a href="pins">ピンのリスト</a></div>
+<h2>受賞ルールのリスト</h2>
 <form action="editPrizeRule"><input type="submit" value="ルールを作成"></form>
 <hr />
 <c:forEach var="e" items="${prizeRules}">

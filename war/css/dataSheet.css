@@ -1,0 +1,26 @@
+@CHARSET "utf-8";
+
+.name {
+	display: block;
+}
+
+.value {
+	display: block;
+}
+
+.block {
+	width: 500px;
+	padding: 10px;
+	background-color: #eeeeee;
+	margin: 10px;
+}
+
+.comment {
+	font-size: 10px;
+	color: olive;
+}
+
+.template {
+	margin-top: 10px;
+	font-size: 10px;
+}

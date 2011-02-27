@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-14 23:46:51")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-27 19:12:02")
 /** */
 public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.Quiz> {
 

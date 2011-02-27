@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-13 21:18:57")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-27 19:12:02")
 /** */
 public final class PrizeRuleMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.PrizeRule> {
 

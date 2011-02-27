@@ -18,9 +18,9 @@ public class EditOptionController extends Controller {
         Option q = new Option();
 
         Integer id = asInteger("id");
-        Integer pinId = asInteger("quizId");
-        if (pinId != null) {
-            Key key = Datastore.createKey(Quiz.class, pinId);
+        Integer quizId = asInteger("quizId");
+        if (quizId != null) {
+            Key key = Datastore.createKey(Quiz.class, quizId);
             q.setQuizKey(key);
             GlobalTransaction tx = Datastore.beginGlobalTransaction();
             q.setKey(Datastore.put(q));

@@ -7,14 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <LINK href="/css/jagkuma.css" rel="stylesheet" type="text/css">
-<title>admin Options</title>
+<title>選択肢のリスト</title>
 </head>
 <body>
-<p>Hello admin Options !!!</p>
+<div><a href="index">トップ</a></div>
+<div><a href="pins">ピンのリスト</a></div>
+<h2>選択肢のリスト</h2>
 <form action="editOption"><span><input type="hidden"
-	name="quizId" value="${quizId}" /></span><input type="submit"
-	value="選択肢を作成"></form>
-<div><a href="quizes">ピンリスト</a></div>
+	name="quizId" value="${quizId}" /></span><input type="submit" value="選択肢を作成"></form>
 <hr />
 
 <c:forEach var="e" items="${options}">

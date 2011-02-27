@@ -7,12 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <LINK href="/css/jagkuma.css" rel="stylesheet" type="text/css">
-<title>admin Pins</title>
+<title>ピンのリスト</title>
 </head>
 <body>
-<p>Hello admin Pins !!!</p>
 
 <div><a href="index">トップ</a></div>
+<h2>ピンのリスト</h2>
+
 <form action="editPin"><input type="submit" value="ピンを作成"></form>
 <hr />
 <c:forEach var="e" items="${pins}">
@@ -23,8 +24,7 @@
 	<form action="removePin"><span><input type="hidden"
 		name="id" value="${e.key.id}" /></span><input type="submit" value="削除"></form>
 	<form action="quizes"><span><input type="hidden"
-		name="pinId" value="${e.key.id}" /></span><input type="submit"
-		value="問題リスト"></form>
+		name="pinId" value="${e.key.id}" /></span><input type="submit" value="問題リスト"></form>
 	</div>
 	<hr />
 </c:forEach>

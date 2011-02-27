@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-14 23:46:11")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-02-27 21:50:30")
 /** */
 public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.EventLog> {
 

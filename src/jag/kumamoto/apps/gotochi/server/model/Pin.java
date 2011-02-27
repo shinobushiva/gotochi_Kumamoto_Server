@@ -50,6 +50,11 @@ public class Pin implements Serializable {
     private String name;
 
     /**
+     * ピンの説明
+     */
+    private String description;
+
+    /**
      * 地域コード
      */
     private Integer areaCode;
@@ -209,5 +214,13 @@ public class Pin implements Serializable {
 
     public Integer getPoint() {
         return point;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

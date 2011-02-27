@@ -7,13 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <LINK href="/css/jagkuma.css" rel="stylesheet" type="text/css">
-<title>admin Quizes</title>
+<title>クイズのリスト</title>
 </head>
 <body>
-<p>Hello admin Quizes !!!</p>
+<div><a href="index">トップ</a></div>
+<div><a href="pins">ピンのリスト</a></div>
+<h2>クイズのリスト</h2>
+
 <form action="editQuiz"><span><input type="hidden"
 	name="pinId" value="${pinId}" /></span><input type="submit" value="問題を作成"></form>
-<div><a href="pins">ピンリスト</a></div>
+
 <hr />
 
 <c:forEach var="e" items="${quizes}">
