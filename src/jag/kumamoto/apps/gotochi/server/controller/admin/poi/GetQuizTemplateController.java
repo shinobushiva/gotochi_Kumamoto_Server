@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.controller.admin.poi;
 
+import java.util.ArrayList;
+
 import jag.kumamoto.apps.gotochi.server.service.ExcelIOService;
 import jag.kumamoto.apps.gotochi.server.vo.QuizExcelSheet;
 
@@ -14,7 +16,8 @@ public class GetQuizTemplateController extends Controller {
     @Override
     public Navigation run() throws Exception {
 
-        HSSFWorkbook book = eIO.createBook(QuizExcelSheet.class);
+        HSSFWorkbook book =
+            eIO.write(new ArrayList<QuizExcelSheet>(), QuizExcelSheet.class);
 
         // EXCELのコンテントタイプを設定
         response.setContentType("application/msexcel");

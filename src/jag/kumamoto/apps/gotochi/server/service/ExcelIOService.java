@@ -12,6 +12,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
@@ -179,6 +181,14 @@ public class ExcelIOService {
 
         Row row0 = sheet.createRow(0);
         Row row1 = sheet.createRow(1);
+        CellStyle style1 = wb.createCellStyle();
+        style1.setBorderBottom(CellStyle.BORDER_THIN);
+        style1.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style1.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
+        style1.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        CellStyle style0 = wb.createCellStyle();
+        style0.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
+        style0.setFillPattern(CellStyle.SOLID_FOREGROUND);
 
         int counter = 0;
 
@@ -211,10 +221,12 @@ public class ExcelIOService {
                             {
                                 Cell cell = row0.createCell(counter);
                                 cell.setCellValue(ec2.description());
+                                cell.setCellStyle(style0);
                             }
                             {
                                 Cell cell = row1.createCell(counter);
                                 cell.setCellValue(string + "[]");
+                                cell.setCellStyle(style1);
                             }
                             counter++;
                         } catch (Exception e) {
@@ -227,10 +239,12 @@ public class ExcelIOService {
                 {
                     Cell cell = row0.createCell(counter);
                     cell.setCellValue(description);
+                    cell.setCellStyle(style0);
                 }
                 {
                     Cell cell = row1.createCell(counter);
                     cell.setCellValue(name);
+                    cell.setCellStyle(style1);
                 }
                 counter++;
             }
@@ -302,59 +316,6 @@ public class ExcelIOService {
             return "";
         }
         return "" + str;
-    }
-
-    public HSSFWorkbook createBook(Class<?> c) {
-        if (c.getAnnotation(ExcelSheet.class) == null) {
-            return null;
-        }
-
-        HSSFWorkbook wb = new HSSFWorkbook();
-        HSSFSheet sheet = wb.createSheet();
-
-        Row row0 = sheet.createRow(0);
-        Row row1 = sheet.createRow(1);
-
-        Map<String, List<String>> groupMap =
-            new HashMap<String, List<String>>();
-
-        int counter = 0;
-
-        Field[] fields = c.getDeclaredFields();
-        for (Field field : fields) {
-            ExcelColumun ec = field.getAnnotation(ExcelColumun.class);
-            if (ec == null)
-                continue;
-            String name = field.getName();
-            String description = ec.description();
-
-            String group = ec.group();
-            if (group.length() > 0) {
-                List<String> list = groupMap.get(group);
-                if (list == null) {
-                    list = new ArrayList<String>();
-                    groupMap.put(group, list);
-                }
-                list.add(name);
-            }
-
-            if (field.getType().isArray()) {
-                name = name + "[]";
-            }
-
-            {
-                Cell cell = row0.createCell(counter);
-                cell.setCellValue(description);
-            }
-            {
-                Cell cell = row1.createCell(counter);
-                cell.setCellValue(name);
-            }
-
-            counter++;
-        }
-
-        return wb;
     }
 
 }
