@@ -39,7 +39,7 @@ public class UploadQuizSheetController extends Controller {
 
         for (QuizExcelSheet s : read) {
 
-            if (!s.command.startsWith("n") && n(s.pinId)) {
+            if (n(s.pinName)) {
                 // Quiz定義
 
                 if (pin == null) {
@@ -75,7 +75,7 @@ public class UploadQuizSheetController extends Controller {
                         continue;
                     }
                 }
-                if (!n(s.quizId)) {
+                if (s.command.startsWith("u") && !n(s.quizId)) {
                     long quizId = Long.parseLong(v(s.quizId));
                     quizKey = Datastore.createKey(Quiz.class, quizId);
 
@@ -142,7 +142,7 @@ public class UploadQuizSheetController extends Controller {
 
             } else {
                 // Pin定義
-                if (s.command.startsWith("n")) {// 新規作成
+                if (!s.command.startsWith("u")) {// 新規作成
                 } else if (s.command.endsWith("d")) {// 削除
                     if (n(s.pinId))
                         continue;

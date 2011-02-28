@@ -8,7 +8,7 @@ import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
 @ExcelSheet
 public class QuizExcelSheet {
 
-    @ExcelColumun(description = "コマンド(n-Pin作成,d-削除)")
+    @ExcelColumun(description = "コマンド(u-更新,d-削除)")
     public String command;
     @ExcelColumun(description = "ピンID")
     public String pinId;

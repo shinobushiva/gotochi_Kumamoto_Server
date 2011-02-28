@@ -31,6 +31,7 @@ public class GetQuizSheetController extends Controller {
         for (Pin pin : pins) {
             {
                 QuizExcelSheet s = new QuizExcelSheet();
+                s.command = "u";
                 list.add(s);
                 s.pinId = value(pin.getKey().getId());
                 s.pinName = value(pin.getName());
