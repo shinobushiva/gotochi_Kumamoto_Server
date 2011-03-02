@@ -1,4 +1,20 @@
-<!-- Indices written at Sun, 27 Feb 2011 16:44:27 UTC -->
+<!-- Indices written at Tue, 1 Mar 2011 06:56:53 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="EventLog" ancestor="false" source="auto">
+        <property name="executed" direction="asc"/>
+        <property name="overridden" direction="asc"/>
+        <property name="quizRef" direction="asc"/>
+        <property name="userRef" direction="asc"/>
+        <property name="time" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Prize" ancestor="false" source="auto">
+        <property name="userKey" direction="asc"/>
+        <property name="issuedTime" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

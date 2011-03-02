@@ -91,10 +91,12 @@ public class UploadQuizSheetController extends Controller {
                 for (int i = 0; i < s.optionIds.length; i++) {
                     Option option = null;
                     Key opKey = null;
-                    if (!n(s.optionIds[i])) {
+                    if (!n(s.optionContent[i])) {
                         long opId = Long.parseLong(v(s.optionIds[i]));
                         opKey = Datastore.createKey(Option.class, opId);
                         option = Datastore.getOrNull(Option.class, opKey);
+                    } else {
+                        continue;
                     }
                     if (option == null) {
                         option = new Option();

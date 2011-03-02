@@ -38,14 +38,13 @@ public class ArriveController extends JsonController {
         if (pin != null && user != null) {
             EventLog el = new EventLog();
 
-            EventLog old = els.getEventLog(user, pin);
-
             el.setPin(pin);
             el.getPinRef().setModel(pin);
             el.getUserRef().setKey(user.getKey());
             el.setTime(new Date());
             el.setOverridden(0);
 
+            EventLog old = els.getEventLog(user, pin);
             if (old != null) {
                 old.setOverridden(1);
                 GlobalTransaction tx = Datastore.beginGlobalTransaction();
@@ -65,7 +64,7 @@ public class ArriveController extends JsonController {
                     gud.setPoint(0);
                 }
 
-                gud.setPoint(gud.getPoint() + pin.getPoint());
+                gud.setPoint(get(gud.getPoint()) + get(pin.getPoint()));
                 el.setExecuted(1); // 執行済みにマーク
 
                 GlobalTransaction tx = Datastore.beginGlobalTransaction();
@@ -84,6 +83,12 @@ public class ArriveController extends JsonController {
         hm.put("success", "true");
 
         return hm;
+    }
+
+    public Integer get(Integer i) {
+        if (i == null)
+            return 0;
+        return i;
     }
 
     public class Value {

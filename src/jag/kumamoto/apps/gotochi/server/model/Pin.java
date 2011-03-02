@@ -13,7 +13,7 @@ import org.slim3.datastore.Model;
  * @author shiva
  * 
  */
-@Model(schemaVersion = 1)
+@Model(schemaVersion = 2)
 public class Pin implements Serializable {
 
     private static final long serialVersionUID = 1L;

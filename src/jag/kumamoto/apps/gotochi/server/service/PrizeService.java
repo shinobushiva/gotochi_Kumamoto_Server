@@ -28,6 +28,7 @@ public class PrizeService {
 
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("js");
+
         engine.put("userdata", gud);
         engine.put("pin", pin);
         engine.put("quiz", quiz);
@@ -54,7 +55,7 @@ public class PrizeService {
                     Datastore.put(p);
                     tx.commit();
                 }
-                System.out.println(eval);
+                // System.out.println(eval);
 
             } catch (ScriptException e) {
                 e.printStackTrace();

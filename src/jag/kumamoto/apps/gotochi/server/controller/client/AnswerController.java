@@ -77,11 +77,6 @@ public class AnswerController extends JsonController {
                 el.setExecuted(old.getExecuted());
             }
 
-            el.setExecuted(1); // 執行済みにマーク
-            GlobalTransaction tx = Datastore.beginGlobalTransaction();
-            Datastore.put(el);
-            tx.commit();
-
             if (1 == el.getCorrectness() && 1 != el.getExecuted()) {
                 GotochiUserData gud = us.getGotochiData(user);
                 if (gud.getPoint() == null) {
@@ -89,10 +84,15 @@ public class AnswerController extends JsonController {
                 }
                 gud.setPoint(gud.getPoint() + quiz.getPoint());
 
-                tx = Datastore.beginGlobalTransaction();
+                GlobalTransaction tx = Datastore.beginGlobalTransaction();
                 Datastore.put(gud);
                 tx.commit();
                 ps.checkPrize(gud, pin, quiz, user); // 受賞チェック
+
+                el.setExecuted(1); // 執行済みにマーク
+                tx = Datastore.beginGlobalTransaction();
+                Datastore.put(el);
+                tx.commit();
             }
 
             // XXX:テスト
