@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.model;
 
+import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import com.google.appengine.api.datastore.Key;
  * @author shiva
  * 
  */
+@ExcelSheet(useColumn = false)
 @Model(schemaVersion = 1)
 public class Quiz implements Serializable {
 
@@ -57,6 +60,12 @@ public class Quiz implements Serializable {
      * プライオリティ
      */
     private Integer order;
+
+    /**
+     * クイズの解説
+     */
+    @Attribute(lob = true)
+    private String description;
 
     /**
      * Returns the key.
@@ -172,6 +181,14 @@ public class Quiz implements Serializable {
 
     public Integer getOrder() {
         return order;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 }

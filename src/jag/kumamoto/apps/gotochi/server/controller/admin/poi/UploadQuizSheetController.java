@@ -39,18 +39,24 @@ public class UploadQuizSheetController extends Controller {
 
         for (QuizExcelSheet s : read) {
 
-            if (n(s.pinName)) {
+            System.out.println("--");
+            System.out.println(pin);
+            System.out.println(s.pinName);
+            System.out.println(s.quizTitle);
+            System.out.println(s.command);
+            System.out.println(isNullOrEmpty(s.pinName));
+            if (isNullOrEmpty(s.pinName)) {
                 // Quiz定義
 
                 if (pin == null) {
-                    continue;
+                    continue;// 関連するピンが定義されていない
                 }
 
                 Quiz quiz = null;
                 Key quizKey = null;
 
-                if (s.command.endsWith("d")) {// 削除
-                    if (!n(s.quizId)) {
+                if (s.command.startsWith("d")) {// 削除
+                    if (!isNullOrEmpty(s.quizId)) {
                         long quizId = Long.parseLong(v(s.quizId));
                         quizKey = Datastore.createKey(Quiz.class, quizId);
                         quiz = Datastore.get(Quiz.class, quizKey);
@@ -61,7 +67,6 @@ public class UploadQuizSheetController extends Controller {
                                 .filter(OptionMeta.get().quizKey.equal(quizKey))
                                 .asKeyList();
                         for (Key key : asKeyList) {
-
                             GlobalTransaction gtx =
                                 Datastore.beginGlobalTransaction();
                             Datastore.delete(key);
@@ -75,7 +80,7 @@ public class UploadQuizSheetController extends Controller {
                         continue;
                     }
                 }
-                if (s.command.startsWith("u") && !n(s.quizId)) {
+                if (s.command.startsWith("u") && !isNullOrEmpty(s.quizId)) {
                     long quizId = Long.parseLong(v(s.quizId));
                     quizKey = Datastore.createKey(Quiz.class, quizId);
 
@@ -89,12 +94,19 @@ public class UploadQuizSheetController extends Controller {
                 quiz.getOptionKeys().clear();
 
                 for (int i = 0; i < s.optionIds.length; i++) {
+
                     Option option = null;
                     Key opKey = null;
-                    if (!n(s.optionContent[i])) {
-                        long opId = Long.parseLong(v(s.optionIds[i]));
-                        opKey = Datastore.createKey(Option.class, opId);
-                        option = Datastore.getOrNull(Option.class, opKey);
+                    if (!isNullOrEmpty(v(s.optionContent, i))
+                        && !isNullOrEmpty(v(s.optionIds, i))) {
+                        // 更新時
+                        try {
+                            long opId = Long.parseLong(v(s.optionIds, i));
+                            opKey = Datastore.createKey(Option.class, opId);
+                            option = Datastore.getOrNull(Option.class, opKey);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         continue;
                     }
@@ -106,11 +118,11 @@ public class UploadQuizSheetController extends Controller {
                     option.setQuizKey(quizKey);
 
                     option.setText(v(s.optionContent, i));
-                    if (!n(v(s.optionCorrectness, i)))
+                    if (!isNullOrEmpty(v(s.optionCorrectness, i)))
                         option.setCorrectness(Integer.parseInt(v(v(
                             s.optionCorrectness,
                             i))));
-                    if (!n(v(s.optionTypes, i)))
+                    if (!isNullOrEmpty(v(s.optionTypes, i)))
                         option
                             .setType(Integer.parseInt(v(v(s.optionTypes, i))));
 
@@ -126,12 +138,13 @@ public class UploadQuizSheetController extends Controller {
 
                 quiz.setHtml(s.quizContent);
                 quiz.setTitle(s.quizTitle);
-                if (!n(s.quizPoint))
+                quiz.setDescription(s.quizDescription);
+                if (!isNullOrEmpty(s.quizPoint))
                     quiz.setPoint(Integer.parseInt(v(s.quizPoint)));
                 else
                     quiz.setPoint(null);
 
-                if (!n(s.quizOrder))
+                if (!isNullOrEmpty(s.quizOrder))
                     quiz.setOrder(Integer.parseInt(v(s.quizOrder)));
                 else
                     quiz.setOrder(null);
@@ -139,14 +152,18 @@ public class UploadQuizSheetController extends Controller {
 
                 GlobalTransaction gtx = Datastore.beginGlobalTransaction();
                 Datastore.put(quiz);
-                System.out.println(quiz.getHtml());
                 gtx.commit();
 
             } else {
                 // Pin定義
-                if (!s.command.startsWith("u")) {// 新規作成
-                } else if (s.command.endsWith("d")) {// 削除
-                    if (n(s.pinId))
+                if (s.command.startsWith("u")) {// 更新
+                    if (isNullOrEmpty(s.pinId))
+                        continue;
+                    long pinId = Long.parseLong(v(s.pinId));
+                    Key pinKey = Datastore.createKey(Pin.class, pinId);
+                    pin = Datastore.getOrNull(Pin.class, pinKey);
+                } else if (s.command.startsWith("d")) {// 削除
+                    if (isNullOrEmpty(s.pinId))
                         continue;
                     long pinId = Long.parseLong(v(s.pinId));
                     Key pinKey = Datastore.createKey(Pin.class, pinId);
@@ -155,52 +172,46 @@ public class UploadQuizSheetController extends Controller {
                     gtx.commit();
                     continue;
                 } else {
-                    long pinId = Long.parseLong(v(s.pinId));
-                    Key pinKey = Datastore.createKey(Pin.class, pinId);
-                    pin = Datastore.getOrNull(Pin.class, pinKey);
-                }
-                if (pin == null) {
                     pin = new Pin();
                 }
 
-                if (!n(s.altitude))
+                if (!isNullOrEmpty(s.altitude))
                     pin.setAltitude(Integer.parseInt(v(s.altitude)));
                 else
                     pin.setAltitude(null);
 
-                if (!n(s.areaCode))
+                if (!isNullOrEmpty(s.areaCode))
                     pin.setAreaCode(Integer.parseInt(v(s.areaCode)));
                 else
                     pin.setAreaCode(null);
 
-                if (!n(s.latitude))
+                if (!isNullOrEmpty(s.latitude))
                     pin.setLatitude(Integer.parseInt(v(s.latitude)));
                 else
                     pin.setLatitude(null);
 
-                if (!n(s.longitude))
+                if (!isNullOrEmpty(s.longitude))
                     pin.setLongitude(Integer.parseInt(v(s.longitude)));
                 else
                     pin.setLongitude(null);
 
-                if (!n(s.pinPoint))
+                if (!isNullOrEmpty(s.pinPoint))
                     pin.setPoint(Integer.parseInt(v(s.pinPoint)));
                 else
                     pin.setPoint(null);
 
-                if (!n(s.pinDescription))
+                if (!isNullOrEmpty(s.pinDescription))
                     pin.setDescription(v(s.areaCode));
 
-                if (!n(s.pinName))
+                if (!isNullOrEmpty(s.pinName))
                     pin.setName(v(s.pinName));
 
-                if (!n(s.pinUrl))
+                if (!isNullOrEmpty(s.pinUrl))
                     pin.setUrl(v(s.pinUrl));
 
                 GlobalTransaction gtx = Datastore.beginGlobalTransaction();
                 Datastore.put(pin);
                 gtx.commit();
-
             }
         }
         requestScope("comment", "アップロードしました");
@@ -217,7 +228,7 @@ public class UploadQuizSheetController extends Controller {
         return sr[i];
     }
 
-    private boolean n(String s) {
+    private boolean isNullOrEmpty(String s) {
         if (s == null) {
             return true;
         }
@@ -227,6 +238,22 @@ public class UploadQuizSheetController extends Controller {
         return false;
 
     }
+
+    // private Long l(String s) {
+    // try {
+    // return Long.parseLong(s);
+    // } catch (Exception e) {
+    // return 0l;
+    // }
+    // }
+    //
+    // private Integer i(String s) {
+    // try {
+    // return Integer.parseInt(s);
+    // } catch (Exception e) {
+    // return 0;
+    // }
+    // }
 
     private String v(String s) {
         if (s == null) {

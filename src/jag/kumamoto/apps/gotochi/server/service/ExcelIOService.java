@@ -23,7 +23,6 @@ public class ExcelIOService {
 
     public <T> List<T> read(HSSFWorkbook book, Class<T> clazz)
             throws InstantiationException, IllegalAccessException {
-        // System.out.println("read");
 
         List<T> result = new ArrayList<T>();
 
@@ -45,7 +44,6 @@ public class ExcelIOService {
             HSSFRow row = sheet.getRow(rowNum);
 
             int lastCellNum = row.getLastCellNum();
-            // System.out.println(lastCellNum);
             int cellNum = 0;
             while (cellNum <= lastCellNum) {
                 try {
@@ -111,9 +109,11 @@ public class ExcelIOService {
     }
 
     public <T> HSSFWorkbook write(List<T> inList, Class<T> clazz) {
-        if (clazz.getAnnotation(ExcelSheet.class) == null) {
+        ExcelSheet annotation = clazz.getAnnotation(ExcelSheet.class);
+        if (annotation == null) {
             return null;
         }
+        boolean useColumn = annotation.useColumn();
 
         Map<String, Integer> groupLength = new HashMap<String, Integer>();
         Map<String, List<String>> grouped = new HashMap<String, List<String>>();
@@ -123,11 +123,14 @@ public class ExcelIOService {
 
         for (Field field : fields) {
             if (field.getType().isArray()) {
-                ExcelColumun ec = field.getAnnotation(ExcelColumun.class);
-                if (ec == null)
+                ExcelColumn ec = field.getAnnotation(ExcelColumn.class);
+                if (ec == null && useColumn)
                     continue;
 
-                String group = ec.group();
+                String group = "";
+                if (ec != null) {
+                    group = ec.group();
+                }
                 if (group.isEmpty()) {
                     group = "" + field.hashCode(); // groupが指定されていない配列に仮グループ指定
                 }
@@ -195,11 +198,15 @@ public class ExcelIOService {
         List<String> doneGroups = new ArrayList<String>();
 
         for (Field field : fields) {
-            ExcelColumun ec = field.getAnnotation(ExcelColumun.class);
-            if (ec == null)
+            ExcelColumn ec = field.getAnnotation(ExcelColumn.class);
+            if (ec == null && useColumn)
                 continue;
+
             String name = field.getName();
-            String description = ec.description();
+            String description = name;
+            if (ec != null) {
+                description = ec.description();
+            }
 
             if (field.getType().isArray()) {
                 String group = ec.group();
@@ -216,11 +223,15 @@ public class ExcelIOService {
                     for (String string : groupMemebers) {
                         try {
                             Field f = getField(string, map, clazz);
-                            ExcelColumun ec2 =
-                                f.getAnnotation(ExcelColumun.class);
+                            ExcelColumn ec2 =
+                                f.getAnnotation(ExcelColumn.class);
+                            String desc2 = f.getName();
+                            if (ec2 != null) {
+                                desc2 = ec2.description();
+                            }
                             {
                                 Cell cell = row0.createCell(counter);
-                                cell.setCellValue(ec2.description());
+                                cell.setCellValue(desc2);
                                 cell.setCellStyle(style0);
                             }
                             {
@@ -258,10 +269,11 @@ public class ExcelIOService {
 
             int cellnum = 0;
             for (Field field : fields) {
-                ExcelColumun ec = field.getAnnotation(ExcelColumun.class);
-                if (ec == null) {
+                ExcelColumn ec = field.getAnnotation(ExcelColumn.class);
+                if (ec == null && useColumn) {
                     continue;
                 }
+
                 String fName = field.getName();
 
                 if (field.getType().isArray()) {

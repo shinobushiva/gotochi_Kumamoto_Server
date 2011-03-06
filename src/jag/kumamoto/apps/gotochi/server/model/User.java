@@ -1,11 +1,13 @@
 package jag.kumamoto.apps.gotochi.server.model;
 
-import java.io.Serializable;
+import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
 
-import com.google.appengine.api.datastore.Key;
+import java.io.Serializable;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
+
+import com.google.appengine.api.datastore.Key;
 
 /**
  * ユーザの基本情報を保持します。
@@ -13,6 +15,7 @@ import org.slim3.datastore.Model;
  * @author shiva
  * 
  */
+@ExcelSheet(useColumn = false)
 @Model(schemaVersion = 1)
 public class User implements Serializable {
 

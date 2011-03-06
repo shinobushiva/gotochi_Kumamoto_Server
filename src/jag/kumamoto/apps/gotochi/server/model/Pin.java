@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.model;
 
+import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
+
 import java.io.Serializable;
 
 import com.google.appengine.api.datastore.Key;
@@ -13,6 +15,7 @@ import org.slim3.datastore.Model;
  * @author shiva
  * 
  */
+@ExcelSheet(useColumn = false)
 @Model(schemaVersion = 2)
 public class Pin implements Serializable {
 

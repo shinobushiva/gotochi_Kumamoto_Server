@@ -52,6 +52,7 @@ public class GetQuizSheetController extends Controller {
             for (Quiz quiz : quizes) {
 
                 QuizExcelSheet s = new QuizExcelSheet();
+                s.command = "u";
                 list.add(s);
 
                 // s.pinId = "" + pin.getKey().getId();
@@ -65,6 +66,7 @@ public class GetQuizSheetController extends Controller {
                 s.quizPoint = value(quiz.getPoint());
                 s.quizOrder = value(quiz.getOrder());
                 s.quizTitle = value(quiz.getTitle());
+                s.quizDescription = value(quiz.getDescription());
 
                 List<Option> options =
                     Datastore.query(Option.class).filter(

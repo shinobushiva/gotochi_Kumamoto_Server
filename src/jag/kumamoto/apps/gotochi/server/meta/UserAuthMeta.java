@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-01 17:56:54")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-06 17:29:32")
 /** */
 public final class UserAuthMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.UserAuth> {
 

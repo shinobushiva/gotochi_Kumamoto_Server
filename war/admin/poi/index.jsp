@@ -29,5 +29,11 @@
 </form>
 </div>
 
+<div class="block">
+<form action="clearQuizData" method="POST">
+<div>ピンとクイズをクリア</div>
+<input type="submit" /></form>
+</div>
+
 </body>
 </html>

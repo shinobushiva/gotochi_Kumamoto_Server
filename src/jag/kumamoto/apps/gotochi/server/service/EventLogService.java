@@ -19,8 +19,8 @@ public class EventLogService {
             Datastore
                 .query(EventLog.class)
                 .filter(m.userRef.equal(user.getKey()))
-                .filter(m.pinRef.equal(pin.getKey()))
-                .filter(m.quizRef.equal(quiz.getKey()))
+                .filter(m.pinKey.equal(pin.getKey()))
+                .filter(m.quizKey.equal(quiz.getKey()))
                 .filter(m.overridden.equal(0))
                 .sort(m.time.asc)
                 .asSingle();
@@ -35,8 +35,8 @@ public class EventLogService {
             Datastore
                 .query(EventLog.class)
                 .filter(m.userRef.equal(user.getKey()))
-                .filter(m.pinRef.equal(pin.getKey()))
-                .filter(m.quizRef.equal(null))
+                .filter(m.pinKey.equal(pin.getKey()))
+                .filter(m.quizKey.equal(null))
                 .filter(m.overridden.equal(0))
                 .sort(m.time.asc)
                 .asSingle();
@@ -65,7 +65,7 @@ public class EventLogService {
             .filter(m.userRef.equal(user.getKey()))
             .filter(m.overridden.equal(0))
             .filter(m.executed.equal(1))
-            .filter(m.quizRef.equal(null))
+            .filter(m.quizKey.equal(null))
             .sort(m.time.asc)
             .asList();
 

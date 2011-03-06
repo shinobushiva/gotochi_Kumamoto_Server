@@ -1,6 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.service;
 
 import jag.kumamoto.apps.gotochi.server.meta.PrizeMeta;
+import jag.kumamoto.apps.gotochi.server.meta.ReceivedPrizeRulesMeta;
 import jag.kumamoto.apps.gotochi.server.model.EventLog;
 import jag.kumamoto.apps.gotochi.server.model.GotochiUserData;
 import jag.kumamoto.apps.gotochi.server.model.Item;
@@ -8,6 +9,7 @@ import jag.kumamoto.apps.gotochi.server.model.Pin;
 import jag.kumamoto.apps.gotochi.server.model.Prize;
 import jag.kumamoto.apps.gotochi.server.model.PrizeRule;
 import jag.kumamoto.apps.gotochi.server.model.Quiz;
+import jag.kumamoto.apps.gotochi.server.model.ReceivedPrizeRules;
 import jag.kumamoto.apps.gotochi.server.model.User;
 
 import java.util.Date;
@@ -19,6 +21,8 @@ import javax.script.ScriptException;
 
 import org.slim3.datastore.Datastore;
 import org.slim3.datastore.GlobalTransaction;
+
+import com.google.appengine.api.datastore.Key;
 
 public class PrizeService {
 
@@ -36,8 +40,25 @@ public class PrizeService {
         List<EventLog> logs = els.getEventLog(user);
         engine.put("logs", logs);
 
+        ReceivedPrizeRules rpr =
+            Datastore
+                .query(ReceivedPrizeRules.class)
+                .filter(
+                    ReceivedPrizeRulesMeta.get().userKey.equal(user.getKey()))
+                .asSingle();
+        if (rpr == null) {
+            rpr = new ReceivedPrizeRules();
+            Key rprKey =
+                Datastore.allocateId(user.getKey(), ReceivedPrizeRules.class);
+            rpr.setKey(rprKey);
+            rpr.setUserKey(user.getKey());
+        }
+
         List<PrizeRule> rules = Datastore.query(PrizeRule.class).asList();
         for (PrizeRule prizeRule : rules) {
+            if (rpr.getPrizeRuleKeys().contains(prizeRule.getKey())) {
+                continue;
+            }
 
             try {
                 Object eval = engine.eval("(" + prizeRule.getScript() + ")();");
@@ -54,14 +75,17 @@ public class PrizeService {
                     GlobalTransaction tx = Datastore.beginGlobalTransaction();
                     Datastore.put(p);
                     tx.commit();
+
+                    rpr.getPrizeRuleKeys().add(prizeRule.getKey());
                 }
-                // System.out.println(eval);
 
             } catch (ScriptException e) {
                 e.printStackTrace();
             }
-
         }
+        GlobalTransaction gtx = Datastore.beginGlobalTransaction();
+        Datastore.put(rpr);
+        gtx.commit();
 
     }
 

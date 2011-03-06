@@ -39,7 +39,7 @@ public class ArriveController extends JsonController {
             EventLog el = new EventLog();
 
             el.setPin(pin);
-            el.getPinRef().setModel(pin);
+            el.setPinKey(pin.getKey());
             el.getUserRef().setKey(user.getKey());
             el.setTime(new Date());
             el.setOverridden(0);
@@ -53,18 +53,10 @@ public class ArriveController extends JsonController {
 
                 el.setExecuted(old.getExecuted());
             }
-
-            // System.out.println("el? : " + el);
-            // System.out.println("el? : " + el.getCorrectness());
-            // System.out.println("el? : " + el.getExecuted());
             if (el.getExecuted() != null && 1 != el.getExecuted()) {
                 GotochiUserData gud = us.getGotochiData(user);
 
-                if (gud.getPoint() == null) {
-                    gud.setPoint(0);
-                }
-
-                gud.setPoint(get(gud.getPoint()) + get(pin.getPoint()));
+                gud.setPoint(getInt(gud.getPoint()) + getInt(pin.getPoint()));
                 el.setExecuted(1); // 執行済みにマーク
 
                 GlobalTransaction tx = Datastore.beginGlobalTransaction();
@@ -85,7 +77,7 @@ public class ArriveController extends JsonController {
         return hm;
     }
 
-    public Integer get(Integer i) {
+    public Integer getInt(Integer i) {
         if (i == null)
             return 0;
         return i;

@@ -1,8 +1,11 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-01 17:56:54")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-06 17:29:26")
 /** */
 public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.Quiz> {
+
+    /** */
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz> description = new org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz>(this, "description", "description");
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz> html = new org.slim3.datastore.StringUnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.Quiz>(this, "html", "html");
@@ -45,6 +48,7 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
     @Override
     public jag.kumamoto.apps.gotochi.server.model.Quiz entityToModel(com.google.appengine.api.datastore.Entity entity) {
         jag.kumamoto.apps.gotochi.server.model.Quiz model = new jag.kumamoto.apps.gotochi.server.model.Quiz();
+        model.setDescription(textToString((com.google.appengine.api.datastore.Text) entity.getProperty("description")));
         model.setHtml(textToString((com.google.appengine.api.datastore.Text) entity.getProperty("html")));
         model.setKey(entity.getKey());
         model.setOptionKeys(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("optionKeys")));
@@ -65,6 +69,7 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
         } else {
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
+        entity.setUnindexedProperty("description", stringToText(m.getDescription()));
         entity.setUnindexedProperty("html", stringToText(m.getHtml()));
         entity.setProperty("optionKeys", m.getOptionKeys());
         entity.setProperty("order", m.getOrder());
@@ -130,6 +135,11 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
         jag.kumamoto.apps.gotochi.server.model.Quiz m = (jag.kumamoto.apps.gotochi.server.model.Quiz) model;
         writer.beginObject();
         org.slim3.datastore.json.JsonCoder encoder = null;
+        if(m.getDescription() != null){
+            writer.setNextPropertyName("description");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getDescription());
+        }
         if(m.getHtml() != null){
             writer.setNextPropertyName("html");
             encoder = new org.slim3.datastore.json.Default();
@@ -182,6 +192,9 @@ public final class QuizMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.a
         jag.kumamoto.apps.gotochi.server.model.Quiz m = new jag.kumamoto.apps.gotochi.server.model.Quiz();
         org.slim3.datastore.json.JsonReader reader = null;
         org.slim3.datastore.json.JsonCoder decoder = null;
+        reader = rootReader.newObjectReader("description");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setDescription(decoder.decode(reader, m.getDescription()));
         reader = rootReader.newObjectReader("html");
         decoder = new org.slim3.datastore.json.Default();
         m.setHtml(decoder.decode(reader, m.getHtml()));

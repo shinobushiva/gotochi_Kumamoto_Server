@@ -3,7 +3,8 @@ package jag.kumamoto.apps.gotochi.server.model;
 import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
@@ -11,14 +12,14 @@ import org.slim3.datastore.Model;
 import com.google.appengine.api.datastore.Key;
 
 /**
- * 獲得商品情報を保持します。
+ * ユーザが既に受け取った賞の受賞ルールを保持します。
  * 
  * @author shiva
  * 
  */
 @ExcelSheet(useColumn = false)
 @Model(schemaVersion = 1)
-public class PrizeRule implements Serializable {
+public class ReceivedPrizeRules implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,30 +30,14 @@ public class PrizeRule implements Serializable {
     private Long version;
 
     /**
-     * タイトル
+     * ユーザキー
      */
-    private String title;
+    private Key userKey;
 
     /**
-     * ルール検証スクリプト Javascript
+     * 受賞ルールのキーリスト
      */
-    @Attribute(lob = true)
-    private String script;
-
-    /**
-     * メッセージ
-     */
-    private String message;
-
-    /**
-     * 受賞アイテムキー
-     */
-    private Key itemKey;
-
-    /**
-     * 発行時刻
-     */
-    private Date issuedTime;
+    private List<Key> prizeRuleKeys = new ArrayList<Key>();
 
     /**
      * Returns the key.
@@ -111,7 +96,7 @@ public class PrizeRule implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        PrizeRule other = (PrizeRule) obj;
+        ReceivedPrizeRules other = (ReceivedPrizeRules) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -122,43 +107,19 @@ public class PrizeRule implements Serializable {
         return true;
     }
 
-    public void setIssuedTime(Date issuedTime) {
-        this.issuedTime = issuedTime;
+    public void setUserKey(Key userKey) {
+        this.userKey = userKey;
     }
 
-    public Date getIssuedTime() {
-        return issuedTime;
+    public Key getUserKey() {
+        return userKey;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPrizeRuleKeys(List<Key> prizeRuleKeys) {
+        this.prizeRuleKeys = prizeRuleKeys;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setScript(String script) {
-        this.script = script;
-    }
-
-    public String getScript() {
-        return script;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setItemKey(Key itemKey) {
-        this.itemKey = itemKey;
-    }
-
-    public Key getItemKey() {
-        return itemKey;
+    public List<Key> getPrizeRuleKeys() {
+        return prizeRuleKeys;
     }
 }

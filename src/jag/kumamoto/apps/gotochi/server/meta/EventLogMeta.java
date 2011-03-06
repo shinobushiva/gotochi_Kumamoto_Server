@@ -1,6 +1,6 @@
 package jag.kumamoto.apps.gotochi.server.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-01 17:56:55")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-06 21:36:16")
 /** */
 public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamoto.apps.gotochi.server.model.EventLog> {
 
@@ -23,13 +23,13 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
     public final org.slim3.datastore.UnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, jag.kumamoto.apps.gotochi.server.model.Pin> pin = new org.slim3.datastore.UnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, jag.kumamoto.apps.gotochi.server.model.Pin>(this, "pin", "pin", jag.kumamoto.apps.gotochi.server.model.Pin.class);
 
     /** */
-    public final org.slim3.datastore.ModelRefAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, org.slim3.datastore.ModelRef<jag.kumamoto.apps.gotochi.server.model.Pin>, jag.kumamoto.apps.gotochi.server.model.Pin> pinRef = new org.slim3.datastore.ModelRefAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, org.slim3.datastore.ModelRef<jag.kumamoto.apps.gotochi.server.model.Pin>, jag.kumamoto.apps.gotochi.server.model.Pin>(this, "pinRef", "pinRef", org.slim3.datastore.ModelRef.class, jag.kumamoto.apps.gotochi.server.model.Pin.class);
+    public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, com.google.appengine.api.datastore.Key> pinKey = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, com.google.appengine.api.datastore.Key>(this, "pinKey", "pinKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.UnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, jag.kumamoto.apps.gotochi.server.model.Quiz> quiz = new org.slim3.datastore.UnindexedAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, jag.kumamoto.apps.gotochi.server.model.Quiz>(this, "quiz", "quiz", jag.kumamoto.apps.gotochi.server.model.Quiz.class);
 
     /** */
-    public final org.slim3.datastore.ModelRefAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, org.slim3.datastore.ModelRef<jag.kumamoto.apps.gotochi.server.model.Quiz>, jag.kumamoto.apps.gotochi.server.model.Quiz> quizRef = new org.slim3.datastore.ModelRefAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, org.slim3.datastore.ModelRef<jag.kumamoto.apps.gotochi.server.model.Quiz>, jag.kumamoto.apps.gotochi.server.model.Quiz>(this, "quizRef", "quizRef", org.slim3.datastore.ModelRef.class, jag.kumamoto.apps.gotochi.server.model.Quiz.class);
+    public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, com.google.appengine.api.datastore.Key> quizKey = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, com.google.appengine.api.datastore.Key>(this, "quizKey", "quizKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, java.util.Date> time = new org.slim3.datastore.CoreAttributeMeta<jag.kumamoto.apps.gotochi.server.model.EventLog, java.util.Date>(this, "time", "time", java.util.Date.class);
@@ -66,16 +66,10 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
         model.setOverridden(longToInteger((java.lang.Long) entity.getProperty("overridden")));
         jag.kumamoto.apps.gotochi.server.model.Pin _pin = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("pin"));
         model.setPin(_pin);
-        if (model.getPinRef() == null) {
-            throw new NullPointerException("The property(pinRef) is null.");
-        }
-        model.getPinRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("pinRef"));
+        model.setPinKey((com.google.appengine.api.datastore.Key) entity.getProperty("pinKey"));
         jag.kumamoto.apps.gotochi.server.model.Quiz _quiz = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("quiz"));
         model.setQuiz(_quiz);
-        if (model.getQuizRef() == null) {
-            throw new NullPointerException("The property(quizRef) is null.");
-        }
-        model.getQuizRef().setKey((com.google.appengine.api.datastore.Key) entity.getProperty("quizRef"));
+        model.setQuizKey((com.google.appengine.api.datastore.Key) entity.getProperty("quizKey"));
         model.setTime((java.util.Date) entity.getProperty("time"));
         if (model.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) is null.");
@@ -100,15 +94,9 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
         entity.setUnindexedProperty("options", serializableToBlob(m.getOptions()));
         entity.setProperty("overridden", m.getOverridden());
         entity.setUnindexedProperty("pin", serializableToBlob(m.getPin()));
-        if (m.getPinRef() == null) {
-            throw new NullPointerException("The property(pinRef) must not be null.");
-        }
-        entity.setProperty("pinRef", m.getPinRef().getKey());
+        entity.setProperty("pinKey", m.getPinKey());
         entity.setUnindexedProperty("quiz", serializableToBlob(m.getQuiz()));
-        if (m.getQuizRef() == null) {
-            throw new NullPointerException("The property(quizRef) must not be null.");
-        }
-        entity.setProperty("quizRef", m.getQuizRef().getKey());
+        entity.setProperty("quizKey", m.getQuizKey());
         entity.setProperty("time", m.getTime());
         if (m.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) must not be null.");
@@ -141,14 +129,6 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
     @Override
     protected void assignKeyToModelRefIfNecessary(com.google.appengine.api.datastore.AsyncDatastoreService ds, java.lang.Object model) {
         jag.kumamoto.apps.gotochi.server.model.EventLog m = (jag.kumamoto.apps.gotochi.server.model.EventLog) model;
-        if (m.getPinRef() == null) {
-            throw new NullPointerException("The property(pinRef) must not be null.");
-        }
-        m.getPinRef().assignKeyIfNecessary(ds);
-        if (m.getQuizRef() == null) {
-            throw new NullPointerException("The property(quizRef) must not be null.");
-        }
-        m.getQuizRef().assignKeyIfNecessary(ds);
         if (m.getUserRef() == null) {
             throw new NullPointerException("The property(userRef) must not be null.");
         }
@@ -217,16 +197,16 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
             encoder.encode(writer, m.getOverridden());
         }
         // jag.kumamoto.apps.gotochi.server.model.Pin is not supported.
-        if(m.getPinRef() != null && m.getPinRef().getKey() != null){
-            writer.setNextPropertyName("pinRef");
+        if(m.getPinKey() != null){
+            writer.setNextPropertyName("pinKey");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getPinRef(), maxDepth, currentDepth);
+            encoder.encode(writer, m.getPinKey());
         }
         // jag.kumamoto.apps.gotochi.server.model.Quiz is not supported.
-        if(m.getQuizRef() != null && m.getQuizRef().getKey() != null){
-            writer.setNextPropertyName("quizRef");
+        if(m.getQuizKey() != null){
+            writer.setNextPropertyName("quizKey");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getQuizRef(), maxDepth, currentDepth);
+            encoder.encode(writer, m.getQuizKey());
         }
         if(m.getTime() != null){
             writer.setNextPropertyName("time");
@@ -269,13 +249,13 @@ public final class EventLogMeta extends org.slim3.datastore.ModelMeta<jag.kumamo
         decoder = new org.slim3.datastore.json.Default();
         m.setOverridden(decoder.decode(reader, m.getOverridden()));
         // jag.kumamoto.apps.gotochi.server.model.Pin is not supported.
-        reader = rootReader.newObjectReader("pinRef");
+        reader = rootReader.newObjectReader("pinKey");
         decoder = new org.slim3.datastore.json.Default();
-        decoder.decode(reader, m.getPinRef(), maxDepth, currentDepth);
+        m.setPinKey(decoder.decode(reader, m.getPinKey()));
         // jag.kumamoto.apps.gotochi.server.model.Quiz is not supported.
-        reader = rootReader.newObjectReader("quizRef");
+        reader = rootReader.newObjectReader("quizKey");
         decoder = new org.slim3.datastore.json.Default();
-        decoder.decode(reader, m.getQuizRef(), maxDepth, currentDepth);
+        m.setQuizKey(decoder.decode(reader, m.getQuizKey()));
         reader = rootReader.newObjectReader("time");
         decoder = new org.slim3.datastore.json.Default();
         m.setTime(decoder.decode(reader, m.getTime()));

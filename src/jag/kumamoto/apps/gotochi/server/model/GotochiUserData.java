@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.model;
 
+import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import com.google.appengine.api.datastore.Key;
  * @author shiva
  * 
  */
+@ExcelSheet(useColumn = false)
 @Model(schemaVersion = 1)
 public class GotochiUserData implements Serializable {
 

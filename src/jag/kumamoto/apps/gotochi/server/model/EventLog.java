@@ -1,5 +1,7 @@
 package jag.kumamoto.apps.gotochi.server.model;
 
+import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,7 @@ import com.google.appengine.api.datastore.Key;
  * @author shiva
  * 
  */
+@ExcelSheet(useColumn = false)
 @Model(schemaVersion = 1)
 public class EventLog implements Serializable {
 
@@ -29,11 +32,6 @@ public class EventLog implements Serializable {
     private Long version;
 
     /**
-     * ピン参照キー XXX:LOBとどちらかだけ残す
-     */
-    private ModelRef<Pin> pinRef = new ModelRef<Pin>(Pin.class);
-
-    /**
      * ピン
      */
     @Attribute(lob = true)
@@ -44,10 +42,25 @@ public class EventLog implements Serializable {
      */
     private ModelRef<User> userRef = new ModelRef<User>(User.class);
 
+    // /**
+    // * ピン参照キー XXX:LOBとどちらかだけ残す
+    // */
+    // private ModelRef<Pin> pinRef = new ModelRef<Pin>(Pin.class);
+    //
+    // /**
+    // * クイズ参照キー XXX:LOBとどちらかだけ残す
+    // */
+    // private ModelRef<Quiz> quizRef = new ModelRef<Quiz>(Quiz.class);
+
     /**
-     * クイズ参照キー
+     * ピンキー 検索用
      */
-    private ModelRef<Quiz> quizRef = new ModelRef<Quiz>(Quiz.class);
+    private Key pinKey;
+
+    /**
+     * クイズキー 検索用
+     */
+    private Key quizKey;
 
     /**
      * クイズ
@@ -202,17 +215,17 @@ public class EventLog implements Serializable {
         return executed;
     }
 
-    public ModelRef<Pin> getPinRef() {
-        return pinRef;
-    }
+    // public ModelRef<Pin> getPinRef() {
+    // return pinRef;
+    // }
 
     public ModelRef<User> getUserRef() {
         return userRef;
     }
 
-    public ModelRef<Quiz> getQuizRef() {
-        return quizRef;
-    }
+    // public ModelRef<Quiz> getQuizRef() {
+    // return quizRef;
+    // }
 
     public void setPin(Pin pin) {
         this.pin = pin;
@@ -228,5 +241,21 @@ public class EventLog implements Serializable {
 
     public Quiz getQuiz() {
         return quiz;
+    }
+
+    public void setPinKey(Key pinKey) {
+        this.pinKey = pinKey;
+    }
+
+    public Key getPinKey() {
+        return pinKey;
+    }
+
+    public void setQuizKey(Key quizKey) {
+        this.quizKey = quizKey;
+    }
+
+    public Key getQuizKey() {
+        return quizKey;
     }
 }

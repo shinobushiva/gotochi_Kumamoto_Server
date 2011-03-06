@@ -2,55 +2,57 @@ package jag.kumamoto.apps.gotochi.server.vo;
 
 import java.util.Arrays;
 
-import jag.kumamoto.apps.gotochi.server.service.ExcelColumun;
+import jag.kumamoto.apps.gotochi.server.service.ExcelColumn;
 import jag.kumamoto.apps.gotochi.server.service.ExcelSheet;
 
 @ExcelSheet
 public class QuizExcelSheet {
 
-    @ExcelColumun(description = "コマンド(u-更新,d-削除)")
+    @ExcelColumn(description = "コマンド(u-更新,d-削除)")
     public String command;
-    @ExcelColumun(description = "ピンID")
+    @ExcelColumn(description = "ピンID")
     public String pinId;
-    @ExcelColumun(description = "緯度")
+    @ExcelColumn(description = "緯度")
     public String latitude;
-    @ExcelColumun(description = "軽度")
+    @ExcelColumn(description = "軽度")
     public String longitude;
-    @ExcelColumun(description = "高度")
+    @ExcelColumn(description = "高度")
     public String altitude;
-    @ExcelColumun(description = "ピン種類")
+    @ExcelColumn(description = "ピン種類")
     public String pinType;
-    @ExcelColumun(description = "ピンの名前")
+    @ExcelColumn(description = "ピンの名前")
     public String pinName;
-    @ExcelColumun(description = "県コード")
+    @ExcelColumn(description = "県コード")
     public String prefCode;
-    @ExcelColumun(description = "エリアコード")
+    @ExcelColumn(description = "エリアコード")
     public String areaCode;
-    @ExcelColumun(description = "ピンの到達得点")
+    @ExcelColumn(description = "ピンの到達得点")
     public String pinPoint;
-    @ExcelColumun(description = "ピンのURL")
+    @ExcelColumn(description = "ピンのURL")
     public String pinUrl;
-    @ExcelColumun(description = "ピンの説明(HTML)")
+    @ExcelColumn(description = "ピンの説明(HTML)")
     public String pinDescription;
 
-    @ExcelColumun(description = "クイズID")
+    @ExcelColumn(description = "クイズID")
     public String quizId;
-    @ExcelColumun(description = "クイズのタイトル")
+    @ExcelColumn(description = "クイズのタイトル")
     public String quizTitle;
-    @ExcelColumun(description = "クイズの内容(HTML)")
+    @ExcelColumn(description = "クイズの内容")
     public String quizContent;
-    @ExcelColumun(description = "クイズの得点")
+    @ExcelColumn(description = "クイズの得点")
     public String quizPoint;
-    @ExcelColumun(description = "クイズのプライオリティ")
+    @ExcelColumn(description = "クイズのプライオリティ(昇順)")
     public String quizOrder;
+    @ExcelColumn(description = "クイズの解説")
+    public String quizDescription;
 
-    @ExcelColumun(description = "選択肢ID", group = "option")
+    @ExcelColumn(description = "選択肢ID", group = "option")
     public String[] optionIds;
-    @ExcelColumun(description = "(1-正解,0-不正解)", group = "option")
+    @ExcelColumn(description = "(1-正解,0-不正解)", group = "option")
     public String[] optionCorrectness;
-    @ExcelColumun(description = "選択肢の種類", group = "option")
+    @ExcelColumn(description = "選択肢の種類", group = "option")
     public String[] optionTypes;
-    @ExcelColumun(description = "選択肢の内容(HTML)", group = "option")
+    @ExcelColumn(description = "選択肢の内容(HTML)", group = "option")
     public String[] optionContent;
 
     @Override

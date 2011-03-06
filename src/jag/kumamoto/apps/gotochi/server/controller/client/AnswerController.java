@@ -52,9 +52,9 @@ public class AnswerController extends JsonController {
             el.setAnsweringTime(v.answeringTime);
             el.setCorrectness(v.correctness);
             el.setPin(pin);
-            el.getPinRef().setModel(pin);
+            el.setPinKey(pin.getKey());
             el.setQuiz(quiz);
-            el.getQuizRef().setModel(quiz);
+            el.setQuizKey(quiz.getKey());
             el.setTime(new Date());
             el.getUserRef().setKey(user.getKey());
             el.setOverridden(0);
